@@ -1,27 +1,25 @@
 
 cmake_minimum_required(VERSION 3.0.0)
 
-include(ExternalProject)
+set(CMAKE_AUTOMOC ON)
 
 set(PROJECT_NAME
-    freemapper-gui
+    freemapper-projection
 )
 set(LIBRARY_NAME
-    gui
+    projection
 )
 set(LIBRARY_HEADERS_DIR
     include/${LIBRARY_NAME}
 )
 set(LIBRARY_HEADERS
-    ${LIBRARY_HEADERS_DIR}/A.h
-    ${LIBRARY_HEADERS_DIR}/QVideoProvider.h
+    ${LIBRARY_HEADERS_DIR}/Projection.h
 )
 set(LIBRARY_SOURCE_DIR
     src
 )
 set(LIBRARY_SOURCE
-    ${LIBRARY_SOURCE_DIR}/A.cpp
-    ${LIBRARY_SOURCE_DIR}/QVideoProvider.cpp
+    ${LIBRARY_SOURCE_DIR}/Projection.cpp
 )
 
 project(${PROJECT_NAME})
@@ -41,22 +39,17 @@ target_include_directories(${LIBRARY_NAME} PUBLIC
     $<INSTALL_INTERFACE:include>
 )
 
+# See http://en.sfml-dev.org/forums/index.php?topic=11372.0 for explaination
 target_link_libraries(${LIBRARY_NAME}
-    model
+    sfml-graphics
 )
 
 add_subdirectory(test)
 
 #####
-# OpenCV ***system***
-#####
-find_package( OpenCV REQUIRED )
-target_link_libraries ( ${LIBRARY_NAME} ${OpenCV_LIBS} )
-
-#####
 # Qt
 #####
-set(CMAKE_AUTOMOC ON)
+
 
 # Find the QtWidgets library
 find_package(Qt5Widgets)

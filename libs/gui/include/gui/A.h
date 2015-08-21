@@ -8,4 +8,8 @@ struct A {
   int z;
 };
 
+struct B {
+  int b;
+};
+
 #endif
