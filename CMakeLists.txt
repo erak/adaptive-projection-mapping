@@ -14,7 +14,7 @@ set(FOO_LIBRARIES_DIR
     libs
 )
 set(FOO_LIBRARIES 
-    A
+    gui
     B
 )
 

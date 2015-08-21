@@ -4,10 +4,10 @@ cmake_minimum_required(VERSION 3.0.0)
 include(ExternalProject)
 
 set(PROJECT_NAME
-    ALibrary
+    freemapper-gui
 )
 set(LIBRARY_NAME
-    A
+    gui
 )
 set(LIBRARY_HEADERS_DIR
     include/${LIBRARY_NAME}
