@@ -41,6 +41,7 @@ target_include_directories(${LIBRARY_NAME} PUBLIC
     $<INSTALL_INTERFACE:include>
 )
 
+# Link "internal" libraries
 target_link_libraries(${LIBRARY_NAME}
     model
 )

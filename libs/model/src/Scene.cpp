@@ -1,4 +1,4 @@
-#include "Image.h"
+#include "Scene.h"
 
 #include <math.h>
 
@@ -8,14 +8,14 @@ namespace freemapper {
 
 // --------------------------------------------------------------------------------------------------------------------
 
-Image::Image()
+Scene::Scene()
 {
 
 }
 
 // --------------------------------------------------------------------------------------------------------------------
 
-Image::Image( Mat matrix )
+Scene::Scene( Mat matrix )
   : _matrix( matrix )
 {
 
@@ -23,21 +23,21 @@ Image::Image( Mat matrix )
 
 // --------------------------------------------------------------------------------------------------------------------
 
-void Image::gray()
+void Scene::gray()
 {
   cvtColor( _matrix, _matrix, COLOR_BGR2GRAY );
 }
 
 // --------------------------------------------------------------------------------------------------------------------
 
-void Image::gauss()
+void Scene::gauss()
 {
   GaussianBlur( _matrix, _matrix, Size(3,3), 5.0, 5.0);
 }
 
 // --------------------------------------------------------------------------------------------------------------------
 
-void Image::canny()
+void Scene::canny()
 {
   // Increasing the 3rd parameter leds to less detected shapes. Shorter / smaller edges seems to be sorted out.
   Canny( _matrix, _matrix, 0, 120, 3);
@@ -45,7 +45,7 @@ void Image::canny()
 
 // --------------------------------------------------------------------------------------------------------------------
 
-void Image::drawShape( const Shape &shape )
+void Scene::drawShape( const Shape &shape )
 {
   for( auto point: shape )
   {
@@ -55,7 +55,7 @@ void Image::drawShape( const Shape &shape )
 
 // --------------------------------------------------------------------------------------------------------------------
 
-QImage Image::qImage()
+QImage Scene::qImage()
 {
   auto image = QImage( 640, 480, QImage::Format_RGB32 );
 

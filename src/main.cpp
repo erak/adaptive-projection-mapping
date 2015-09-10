@@ -10,33 +10,38 @@
 #include <QDebug>
 
 #include <gui/QVideoProvider.h>
+#include <capture/Capture.h>
 #include <projection/Projection.h>
 
 int main (int argc, char *argv[])
 {
-  //using namespace freemapper;
-
   QApplication app(argc, argv);
-
-  // cv::findContours()
 
   // QML initialization: start engine and load qml file
   QQmlApplicationEngine qmlEngine;
 
-  QVideoProvider *videoProvider = new QVideoProvider();
-  qmlEngine.addImageProvider( QString("capture"), videoProvider);  
-  qmlEngine.load( QUrl( QStringLiteral("../qml/main.qml") ) );
+  qmlRegisterType<Projection>("freemapper.Projection", 1, 0, "Projection");
 
   // Query qml component for later use
   auto qml = qmlEngine.rootObjects().first();
 
   //
-  Projection projection;
+  Capture capture;
 
   //
-  QQuickItem* projectionToggle = qml->findChild<QQuickItem*>( "projectionOnOff" );
+  Projection projection;
 
-  QObject::connect( projectionToggle, SIGNAL(clicked()), &projection, SLOT(onOff()));
+  // Scene image / video
+  auto videoProvider = new QVideoProvider();
+  qmlEngine.addImageProvider( QString("capture"), videoProvider);
+  qmlEngine.load( QUrl( QStringLiteral("../qml/main.qml") ) );
+
+
+
+  //
+  // QQuickItem* projectionToggle = qml->findChild<QQuickItem*>( "projectionOnOff" );
+
+  //QObject::connect( projectionToggle, SIGNAL(clicked()), &projection, SLOT(onOff()));
   //QObject::connect( &app, &QApplication::aboutToQuit, &audioEngine, &AudioEngine::stop );
 
   // Execute and wait until exit signal received from UI

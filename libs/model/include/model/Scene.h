@@ -1,3 +1,5 @@
+#pragma once
+
 #include <QPixmap>
 
 #include "opencv2/opencv.hpp"
@@ -6,14 +8,14 @@ namespace freemapper {
 
   using Shape = std::vector<cv::Point>;
 
-  class Image
+  class Scene
   {
   public:
     // Create black image
-    Image();
+    Scene();
 
     // Create image from an OpenCV matrix representation
-    Image( cv::Mat matrix );
+    Scene( cv::Mat matrix );
 
     void gray();
 

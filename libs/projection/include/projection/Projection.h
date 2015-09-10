@@ -7,16 +7,20 @@
 class Projection : public QObject
 {
   Q_OBJECT
+  Q_PROPERTY(bool enabled READ enabled WRITE setEnabled NOTIFY enabledChanged)
+
+signals:
+  void enabledChanged();
 
 public:
-  void on();
-  void off();
+  Q_INVOKABLE void on();
+  Q_INVOKABLE void off();
 
-public slots:
-  void onOff();
+  bool enabled() const { return m_enabled; }
+  void setEnabled( const bool &enabled ) { m_enabled = enabled; }
 
 private:
-  bool m_running = false;
+  bool m_enabled = false;
   std::unique_ptr<std::thread> m_thread = nullptr;
 };
 

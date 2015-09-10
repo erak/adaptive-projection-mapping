@@ -19,6 +19,7 @@ set(FOO_LIBRARIES
     model
     gui
     projection
+    capture
 )
 
 project(${FOO_PROJECT_NAME})

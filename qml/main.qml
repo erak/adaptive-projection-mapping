@@ -1,12 +1,20 @@
 import QtQuick 2.3
 import QtQuick.Controls 1.3
 import QtMultimedia 5.4
+import freemapper.Projection 1.0
+
+
 
 ApplicationWindow {
     visible: true
     width: 660
     height: 580
     title: qsTr("freemapper")
+
+    Projection {
+        id: projection
+        enabled: false
+    }
 
     Rectangle {
         id: captureArea
@@ -55,7 +63,7 @@ ApplicationWindow {
         id: calibrate
         anchors {
             top: captureArea.bottom
-            right: projectionOnOff.left
+            right: projectionBtn.left
             margins: 10
         }
         onClicked: {
@@ -67,7 +75,7 @@ ApplicationWindow {
 
 
     Button {
-        id: projectionOnOff
+        id: projectionBtn
         objectName: "projectionOnOff"
         width: 100
 
@@ -77,14 +85,8 @@ ApplicationWindow {
             margins: 10
         }
 
-        text: "Projection: On"
-        onClicked: {
-            if ( text == "Projection: On" ) {
-                text = "Projection: Off";
-            } else {
-                text = "Projection: On";
-            }
-        }
+        text: projection.enabled ? "Projection: On" : "Projection: Off"
+        onClicked: !projection.enabled ? projection.on() : projection.off()
     }
 
 

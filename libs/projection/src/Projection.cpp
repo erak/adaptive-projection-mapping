@@ -8,7 +8,7 @@
 
 void Projection::on()
 {
-  m_running = true;
+  m_enabled = true;
 
   auto thread = new std::thread( [this] () {
 
@@ -19,7 +19,7 @@ void Projection::on()
     sf::RenderWindow window(sf::VideoMode(640, 480), "freemapper::projection", sf::Style::Default, settings);
 
     // run the program as long as the window is open
-    while( m_running && window.isOpen() )
+    while( m_enabled && window.isOpen() )
     {
       // check all the window's events that were triggered since the last iteration of the loop
       sf::Event event;
@@ -35,7 +35,7 @@ void Projection::on()
 
         // Draw vertices
         // create an array of 3 vertices that define a triangle primitive
-        sf::VertexArray shape(sf::LinesStrip, 3);
+        sf::VertexArray shape(sf::Triangles, 3);
 
         // define the position of the triangle's points
         shape[0].position = sf::Vector2f(10, 10);
@@ -54,29 +54,22 @@ void Projection::on()
     }
   });
   m_thread.reset( thread );
+
+  enabledChanged();
 }
 
 // --------------------------------------------------------------------------------------------------------------------
 
 void Projection::off()
 {
-  m_running = false;
+  m_enabled = false;
 
   if ( !!m_thread ) {
     m_thread.get()->join();
   }
   m_thread.release();
-}
 
-// --------------------------------------------------------------------------------------------------------------------
-
-void Projection::onOff()
-{
-  if ( !m_running ) {
-    on();
-  } else {
-    off();
-  }
+  enabledChanged();
 }
 
 
