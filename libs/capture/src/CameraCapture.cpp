@@ -15,7 +15,7 @@ void CameraCapture::capture()
   auto thread = new std::thread( [this] () {
     // Take camera picture and analyze it...
     //
-    VideoCapture capture(1);
+    VideoCapture capture(0);
     Mat frame;
     Mat converted;
 

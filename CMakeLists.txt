@@ -70,6 +70,7 @@ set(CMAKE_AUTOMOC ON)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Qml REQUIRED)
 find_package(Qt5Quick REQUIRED)
+find_package(Qt5Gui REQUIRED)
 
 # Use the Widgets module from Qt 5.
 target_link_libraries(${FOO_PROJECT_NAME} Qt5::Widgets)
@@ -80,3 +81,4 @@ configure_file(qml/main.qml qml/main.qml)
 qt5_use_modules(${FOO_PROJECT_NAME} Widgets)
 qt5_use_modules(${FOO_PROJECT_NAME} Qml)
 qt5_use_modules(${FOO_PROJECT_NAME} Quick)
+qt5_use_modules(${FOO_PROJECT_NAME} Gui)

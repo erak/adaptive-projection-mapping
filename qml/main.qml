@@ -17,21 +17,10 @@ ApplicationWindow {
         id: camera
     }
 
-//    CaptureImage {
-//        id: captureImage
-//        width: 640
-//        height: 480
-//    }
-
     Projection {
         id: projection
         enabled: false
         // scene: capture.scene
-    }
-
-    Connections {
-        target: captureImage
-        onImageChanged: image.setImage(image)
     }
 
     Rectangle {
@@ -40,41 +29,11 @@ ApplicationWindow {
         height: 500
         color: "transparent"
 
-        Component {
-            id: defaultComponent
-
-            Rectangle {
-                width: 640
-                height: 480
-                color: "black"
-                anchors {
-                    top: parent.top
-                    left: parent.left
-                    margins: 10
-                }
-            }
-        }
-
-        Component {
-            id: captureComponent
-
-            Image {
-                id: image
-                source: "image://capture"
-                cache: false
-                height: 480
-                width: 640
-                anchors {
-                    top: parent.top
-                    left: parent.left
-                    margins: 10
-                }
-            }
-        }
-
-        Loader {
-            id: loader
-            sourceComponent: defaultComponent
+        CaptureImage {
+            id: captureImage
+            width: 640
+            height: 480
+            image: camera.image
         }
     }
 
@@ -86,10 +45,7 @@ ApplicationWindow {
             margins: 10
         }
         onClicked: {
-            // capture.capture()
-
-            loader.sourceComponent = null
-            loader.sourceComponent = captureComponent
+            camera.capture()
         }
         text: "Calibrate"
     }

@@ -10,6 +10,12 @@
 
 namespace freemapper {
 
+void CaptureImage::setImage( const QImage &image )
+{
+  m_image = image;
+  update();
+}
+
 // --------------------------------------------------------------------------------------------------------------------
 
 void CaptureImage::paint( QPainter *painter )
