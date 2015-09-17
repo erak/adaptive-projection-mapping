@@ -42,6 +42,7 @@ target_include_directories(${LIBRARY_NAME} PUBLIC
 # See http://en.sfml-dev.org/forums/index.php?topic=11372.0 for explaination
 target_link_libraries(${LIBRARY_NAME}
     sfml-graphics
+    model
 )
 
 add_subdirectory(test)

@@ -13,13 +13,13 @@ set(LIBRARY_HEADERS_DIR
     include/${LIBRARY_NAME}
 )
 set(LIBRARY_HEADERS
-    ${LIBRARY_HEADERS_DIR}/Capture.h
+    ${LIBRARY_HEADERS_DIR}/CameraCapture.h
 )
 set(LIBRARY_SOURCE_DIR
     src
 )
 set(LIBRARY_SOURCE
-    ${LIBRARY_SOURCE_DIR}/Capture.cpp
+    ${LIBRARY_SOURCE_DIR}/CameraCapture.cpp
 )
 
 project(${PROJECT_NAME})

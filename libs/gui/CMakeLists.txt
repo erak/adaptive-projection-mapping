@@ -13,15 +13,15 @@ set(LIBRARY_HEADERS_DIR
     include/${LIBRARY_NAME}
 )
 set(LIBRARY_HEADERS
-    ${LIBRARY_HEADERS_DIR}/A.h
     ${LIBRARY_HEADERS_DIR}/QVideoProvider.h
+    ${LIBRARY_HEADERS_DIR}/CaptureImage.h
 )
 set(LIBRARY_SOURCE_DIR
     src
 )
 set(LIBRARY_SOURCE
-    ${LIBRARY_SOURCE_DIR}/A.cpp
     ${LIBRARY_SOURCE_DIR}/QVideoProvider.cpp
+    ${LIBRARY_SOURCE_DIR}/CaptureImage.cpp
 )
 
 project(${PROJECT_NAME})

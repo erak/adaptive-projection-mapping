@@ -12,16 +12,16 @@ set(LIBRARY_HEADERS_DIR
 )
 set(LIBRARY_HEADERS
     ${LIBRARY_HEADERS_DIR}/Scene.h
-    ${LIBRARY_HEADERS_DIR}/Sculpture.h
-    ${LIBRARY_HEADERS_DIR}/Shape.h
+    #${LIBRARY_HEADERS_DIR}/Sculpture.h
+    #${LIBRARY_HEADERS_DIR}/Shape.h
 )
 set(LIBRARY_SOURCE_DIR
     src
 )
 set(LIBRARY_SOURCE
     ${LIBRARY_SOURCE_DIR}/Scene.cpp
-    ${LIBRARY_SOURCE_DIR}/Sculpture.cpp
-    ${LIBRARY_SOURCE_DIR}/Shape.cpp
+    #${LIBRARY_SOURCE_DIR}/Sculpture.cpp
+    #${LIBRARY_SOURCE_DIR}/Shape.cpp
 )
 
 project(${PROJECT_NAME})

@@ -4,11 +4,12 @@
 
 #include <SFML/Graphics.hpp>
 
+namespace freemapper {
 // --------------------------------------------------------------------------------------------------------------------
 
 void Projection::on()
 {
-  m_enabled = true;
+  setEnabled( true );
 
   auto thread = new std::thread( [this] () {
 
@@ -33,19 +34,22 @@ void Projection::on()
         // clear the window with black color
         window.clear(sf::Color::Black);
 
-        // Draw vertices
-        // create an array of 3 vertices that define a triangle primitive
-        sf::VertexArray shape(sf::Triangles, 3);
+        sf::ConvexShape shape;
 
-        // define the position of the triangle's points
-        shape[0].position = sf::Vector2f(10, 10);
-        shape[1].position = sf::Vector2f(100, 10);
-        shape[2].position = sf::Vector2f(100, 100);
+        // resize it to 5 points
+        shape.setPointCount(5);
 
-        // set the shape color to green
-        shape[0].color = sf::Color::Red;
-        shape[1].color = sf::Color::Red;
-        shape[2].color = sf::Color::Green;
+        // define the points
+        shape.setPoint(0, sf::Vector2f(5, 5));
+        shape.setPoint(1, sf::Vector2f(150, 10));
+        shape.setPoint(2, sf::Vector2f(120, 90));
+        shape.setPoint(3, sf::Vector2f(30, 100));
+        shape.setPoint(4, sf::Vector2f(5, 50));
+
+        shape.setFillColor(sf::Color::Green);
+
+        shape.setOutlineThickness(2.0);
+        shape.setOutlineColor(sf::Color::White);
 
         window.draw(shape);
 
@@ -54,23 +58,35 @@ void Projection::on()
     }
   });
   m_thread.reset( thread );
-
-  enabledChanged();
 }
 
 // --------------------------------------------------------------------------------------------------------------------
 
 void Projection::off()
 {
-  m_enabled = false;
+  setEnabled( false );
 
   if ( !!m_thread ) {
     m_thread.get()->join();
   }
   m_thread.release();
+}
 
+// --------------------------------------------------------------------------------------------------------------------
+
+void Projection::setEnabled( const bool &enabled )
+{
+  m_enabled = enabled;
   enabledChanged();
 }
 
+// --------------------------------------------------------------------------------------------------------------------
 
-//} // namespace freemapper
+void Projection::setScene( const Scene::Ptr &scene )
+{
+  m_scene = scene;
+  sceneChanged();
+}
+
+
+} // namespace freemapper

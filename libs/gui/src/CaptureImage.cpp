@@ -1,4 +1,4 @@
-#include "QVideoProvider.h"
+#include "CaptureImage.h"
 
 #include <math.h>
 
@@ -8,19 +8,14 @@
 
 #include <model/Scene.h>
 
+namespace freemapper {
+
 // --------------------------------------------------------------------------------------------------------------------
 
-QVideoProvider::QVideoProvider()
-  : QQuickImageProvider( QQuickImageProvider::Pixmap )
+void CaptureImage::paint( QPainter *painter )
 {
   //  if(!cap.isOpened())  // check if we succeeded
   //    return -1;
-}
-
-// --------------------------------------------------------------------------------------------------------------------
-
-QPixmap QVideoProvider::requestPixmap( const QString &id, QSize *size, const QSize &requestedSize )
-{
   VideoCapture capture(0);
   Mat frame;
   Mat converted;
@@ -32,6 +27,7 @@ QPixmap QVideoProvider::requestPixmap( const QString &id, QSize *size, const QSi
   original.gauss();
   original.canny();
 
-  return QPixmap::fromImage( original.qImage() );
+  painter->drawImage( QPointF(0.0f,0.0f), original.qImage() );
 }
 
+} // namespace freemapper
