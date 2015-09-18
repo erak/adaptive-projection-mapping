@@ -1,6 +1,8 @@
 
 cmake_minimum_required(VERSION 3.0.0)
 
+set(CMAKE_AUTOMOC ON)
+
 set(PROJECT_NAME
     freemapper-model
 )
@@ -46,7 +48,6 @@ add_subdirectory(test)
 #####
 # Qt
 #####
-set(CMAKE_AUTOMOC ON)
 
 # Find the QtWidgets library
 find_package(Qt5Widgets)

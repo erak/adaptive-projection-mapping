@@ -6,18 +6,19 @@
 #include <QDebug>
 
 #include <model/Scene.h>
+#include <model/Mapping.h>
 
 namespace freemapper {
 
 class Projection : public QObject
 {
   Q_OBJECT
-  Q_PROPERTY(bool enabled READ enabled WRITE setEnabled NOTIFY enabledChanged)
-  Q_PROPERTY(Scene::Ptr scene READ scene WRITE setScene NOTIFY sceneChanged)
+  Q_PROPERTY(bool         enabled READ enabled WRITE setEnabled NOTIFY enabledChanged)
+  Q_PROPERTY(Mapping::Ptr mapping READ mapping WRITE setMapping NOTIFY mappingChanged)
 
 signals:
   void enabledChanged();
-  void sceneChanged();
+  void mappingChanged();
 
 public:
   ~Projection();
@@ -25,17 +26,18 @@ public:
   Q_INVOKABLE void on();
   Q_INVOKABLE void off();
 
-  bool enabled() const { return m_enabled; }
-  void setEnabled( const bool & );
+  bool          enabled() const { return m_enabled; }
+  void          setEnabled( const bool & );
 
-  Scene::Ptr scene() const { return m_scene; }
-  void setScene( const Scene::Ptr & );
+  Mapping::Ptr  mapping() const { return m_mapping; }
+  void          setMapping( const Mapping::Ptr & );
 
 private:
-  bool m_enabled = false;
+  using ThreadPtr = std::unique_ptr<std::thread>;
 
-  Scene::Ptr m_scene;
-  std::unique_ptr<std::thread> m_thread = nullptr;
+  bool          m_enabled = false;
+  ThreadPtr     m_thread = nullptr;
+  Mapping::Ptr  m_mapping;
 };
 
 }

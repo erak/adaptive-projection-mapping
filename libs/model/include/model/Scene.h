@@ -6,54 +6,48 @@
 
 #include "opencv2/opencv.hpp"
 
+#include <model/Mapping.h>
+
 namespace freemapper {
 
-  class Scene
-  {
-  public:
-    //
-    using Ptr = std::shared_ptr< Scene >;
+class Scene : public QObject
+{
+  Q_OBJECT
+  Q_PROPERTY(Mapping::Ptr mapping READ mapping NOTIFY mappingChanged)
 
-    // Create black image
-    Scene();
+signals:
+  void mappingChanged();
 
-    // Create image from an OpenCV matrix representation
-    Scene( cv::Mat matrix );
+public:
+  using Ptr = std::shared_ptr< Scene >;
 
-    // Capture image from connected cam
-    // void capture();
+  // Create image from an OpenCV matrix representation
+  void          setMatrix( const cv::Mat &matrix );
 
-    // ...
-    void gray();
+  Mapping::Ptr  mapping() const { return _mapping; }
 
-    // Apply Gauss blurry filter
-    void gauss();
+  // ...
+  void gray();
 
-    // Apply Canny's edge detection
-    void canny();
+  // Apply Gauss blurry filter
+  void gauss();
 
-    // Combine two images, algorithm has to be selected
-    //Image combine( Image image );
+  // Apply Canny's edge detection
+  void canny();
 
-    // Return Qt pixmap to render image in QML
-    QImage qImage();
+  // Return Qt pixmap to render image in QML
+  QImage qImage();
 
-    // OpenCV matrix representation of this imageh
-    cv::Mat matrix() { return _matrix; }
+  // OpenCV matrix representation of this imageh
+  cv::Mat matrix() { return _matrix; }
 
 
-    /*
-    auto gauss() -> Image;
-    auto canny() -> Image;
+private:
+  cv::Mat       _matrix   = cv::Mat{};
+  Mapping::Ptr  _mapping  = nullptr;
 
-    auto matrix() -> Mat;
+  Mapping::Ptr  createMapping() const;
+};
 
-    auto drawShape() -> void;
-    */
-
-
-  private:
-    cv::Mat _matrix = cv::Mat{};
-  };
-}
+} // namespace freemapper
 

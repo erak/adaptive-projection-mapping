@@ -12,22 +12,8 @@ namespace freemapper {
 
 void CameraCapture::capture()
 {
-  auto thread = new std::thread( [this] () {
+  new std::thread( [this] () {
     // Take camera picture and analyze it...
-    //
-//    VideoCapture capture(0);
-//    Mat frame;
-//    Mat converted;
-
-//    capture >> frame; // get a new frame from camera
-//    cvtColor( frame, converted, COLOR_BGR2GRAY );
-
-//    freemapper::Scene image{ converted };
-//    freemapper::Scene original{ converted };
-
-//    //image.gray();
-//    image.gauss();
-//    image.canny();
 
 //    vector<vector<Point>> contours;
 //    vector<Vec4i> hierarchy;
@@ -62,12 +48,14 @@ void CameraCapture::capture()
     capture >> frame; // get a new frame from camera
     cvtColor( frame, converted, COLOR_BGR2GRAY );
 
-    freemapper::Scene original{ converted };
+    freemapper::Scene original;
+    original.setMatrix( converted );
     original.gauss();
     original.canny();
 
     m_image = original.qImage();
 
+    sceneChanged();
     imageChanged();
   });
 }

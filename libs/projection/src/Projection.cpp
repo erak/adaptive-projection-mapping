@@ -40,22 +40,9 @@ void Projection::on()
         // clear the window with black color
         window.clear(sf::Color::Black);
 
-        sf::ConvexShape shape;
-
-        // resize it to 5 points
-        shape.setPointCount(5);
-
-        // define the points
-        shape.setPoint(0, sf::Vector2f(5, 5));
-        shape.setPoint(1, sf::Vector2f(150, 10));
-        shape.setPoint(2, sf::Vector2f(120, 90));
-        shape.setPoint(3, sf::Vector2f(30, 100));
-        shape.setPoint(4, sf::Vector2f(5, 50));
-
-        shape.setFillColor(sf::Color::Green);
-
-        shape.setOutlineThickness(2.0);
-        shape.setOutlineColor(sf::Color::White);
+        auto tmpMapping = mapping().get();
+        auto shapes = tmpMapping->shapes().get();
+        sf::ConvexShape shape = shapes->at(1);
 
         window.draw(shape);
 
@@ -92,10 +79,10 @@ void Projection::setEnabled( const bool &enabled )
 
 // --------------------------------------------------------------------------------------------------------------------
 
-void Projection::setScene( const Scene::Ptr &scene )
+void Projection::setMapping( const Mapping::Ptr &mapping )
 {
-  m_scene = scene;
-  sceneChanged();
+  m_mapping = mapping;
+  mappingChanged();
 }
 
 

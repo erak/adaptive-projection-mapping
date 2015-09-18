@@ -25,6 +25,8 @@ int main (int argc, char *argv[])
   qmlRegisterType< Projection >   ("freemapper.Projection",     1, 0, "Projection");
   qmlRegisterType< CameraCapture >("freemapper.CameraCapture",  1, 0, "CameraCapture");
   qmlRegisterType< CaptureImage > ("freemapper.CaptureImage",   1, 0, "CaptureImage");
+  qmlRegisterType< Scene >        ("freemapper.Scene",          1, 0, "Scene");
+  qmlRegisterType< Mapping >      ("freemapper.Mapping",        1, 0, "Mapping");
 
     // Scene image / video
   qmlEngine.load( QUrl( QStringLiteral("../qml/main.qml") ) );

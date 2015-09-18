@@ -4,6 +4,8 @@ import QtMultimedia 5.4
 import freemapper.Projection 1.0
 import freemapper.CaptureImage 1.0
 import freemapper.CameraCapture 1.0
+import freemapper.Scene 1.0
+import freemapper.Mapping 1.0
 
 
 
@@ -20,7 +22,7 @@ ApplicationWindow {
     Projection {
         id: projection
         enabled: false
-        // scene: capture.scene
+        mapping: camera.scene.mapping
     }
 
     Rectangle {

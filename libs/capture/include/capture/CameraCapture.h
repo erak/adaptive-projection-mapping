@@ -16,7 +16,7 @@ using namespace cv;
 class CameraCapture : public QObject
 {
   Q_OBJECT
-  Q_PROPERTY(Scene::Ptr scene READ scene NOTIFY sceneChanged)
+  Q_PROPERTY(Scene*     scene READ scene NOTIFY sceneChanged)
   Q_PROPERTY(QImage     image READ image NOTIFY imageChanged)
 
 signals:
@@ -26,7 +26,7 @@ signals:
 public:
   Q_INVOKABLE void capture();
 
-  const Scene::Ptr  scene() { return m_scene; }
+  Scene*            scene() { return m_scene.get(); }
   const QImage      image() { return m_image; }
 
 private:
