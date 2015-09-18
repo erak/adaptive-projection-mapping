@@ -26,11 +26,11 @@ int main (int argc, char *argv[])
   qmlRegisterType< CameraCapture >("freemapper.CameraCapture",  1, 0, "CameraCapture");
   qmlRegisterType< CaptureImage > ("freemapper.CaptureImage",   1, 0, "CaptureImage");
 
-  // Query qml component for later use
-  auto qml = qmlEngine.rootObjects().first();
-
-  // Scene image / video
+    // Scene image / video
   qmlEngine.load( QUrl( QStringLiteral("../qml/main.qml") ) );
+
+  // Query qml component for later use
+  // auto qml = qmlEngine.rootObjects().first();
 
   //QObject::connect( &app, &QApplication::aboutToQuit, &audioEngine, &AudioEngine::stop );
 
