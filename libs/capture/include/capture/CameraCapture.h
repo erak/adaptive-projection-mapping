@@ -9,7 +9,8 @@
 
 #include <model/Scene.h>
 
-using namespace freemapper;
+namespace freemapper {
+
 using namespace cv;
 
 class CameraCapture : public QObject
@@ -45,4 +46,4 @@ private:
 
 };
 
-
+} // namespace freemapper

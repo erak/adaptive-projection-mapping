@@ -9,7 +9,6 @@
 #include <QQuickItem>
 #include <QDebug>
 
-#include <gui/QVideoProvider.h>
 #include <gui/CaptureImage.h>
 #include <capture/CameraCapture.h>
 #include <projection/Projection.h>
@@ -31,8 +30,6 @@ int main (int argc, char *argv[])
   auto qml = qmlEngine.rootObjects().first();
 
   // Scene image / video
-  auto videoProvider = new QVideoProvider();
-  qmlEngine.addImageProvider( QString("capture"), videoProvider);
   qmlEngine.load( QUrl( QStringLiteral("../qml/main.qml") ) );
 
   //QObject::connect( &app, &QApplication::aboutToQuit, &audioEngine, &AudioEngine::stop );

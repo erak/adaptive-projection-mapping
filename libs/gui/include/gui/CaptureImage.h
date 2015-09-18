@@ -10,19 +10,16 @@
 
 namespace freemapper {
 
-using namespace cv;
-
 class CaptureImage : public QQuickPaintedItem
 {
-  // Q_OBJECT
-  // DO NOT INCLUDE QOBJECT MACRO (since it's included in QQuickPaintedItem)
-  Q_PROPERTY(QImage image READ image WRITE setImage NOTIFY imageChanged)
+  Q_OBJECT
+  Q_PROPERTY(QImage image READ image() WRITE setImage NOTIFY imageChanged)
 
 signals:
   void imageChanged();
 
 public:
-  const QImage image() { return m_image; }
+  QImage image() const { return m_image; }
   void setImage( const QImage & );
 
   void paint( QPainter *painter );

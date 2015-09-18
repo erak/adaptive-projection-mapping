@@ -5,6 +5,12 @@
 #include <SFML/Graphics.hpp>
 
 namespace freemapper {
+
+Projection::~Projection()
+{
+  off();
+}
+
 // --------------------------------------------------------------------------------------------------------------------
 
 void Projection::on()
@@ -56,6 +62,10 @@ void Projection::on()
         // end the current frame
         window.display();
     }
+
+    // If projection window was closed, notify QML to alter UI
+    setEnabled( false );
+
   });
   m_thread.reset( thread );
 }

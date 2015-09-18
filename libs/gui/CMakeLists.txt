@@ -1,6 +1,9 @@
 
 cmake_minimum_required(VERSION 3.0.0)
 
+set(CMAKE_AUTOMOC ON)
+
+
 include(ExternalProject)
 
 set(PROJECT_NAME
@@ -13,14 +16,12 @@ set(LIBRARY_HEADERS_DIR
     include/${LIBRARY_NAME}
 )
 set(LIBRARY_HEADERS
-    ${LIBRARY_HEADERS_DIR}/QVideoProvider.h
     ${LIBRARY_HEADERS_DIR}/CaptureImage.h
 )
 set(LIBRARY_SOURCE_DIR
     src
 )
 set(LIBRARY_SOURCE
-    ${LIBRARY_SOURCE_DIR}/QVideoProvider.cpp
     ${LIBRARY_SOURCE_DIR}/CaptureImage.cpp
 )
 
@@ -57,7 +58,8 @@ target_link_libraries ( ${LIBRARY_NAME} ${OpenCV_LIBS} )
 #####
 # Qt
 #####
-set(CMAKE_AUTOMOC ON)
+## set(CMAKE_AUTOMOC ON) SET ABOVE!!!!!
+
 
 # Find the QtWidgets library
 find_package(Qt5Widgets)

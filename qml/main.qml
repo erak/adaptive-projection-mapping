@@ -29,11 +29,26 @@ ApplicationWindow {
         height: 500
         color: "transparent"
 
-        CaptureImage {
-            id: captureImage
+        Rectangle {
+            anchors {
+                top: captureArea.top
+                left: captureArea.left
+                margins: 10
+            }
+            border {
+                width: 1
+                color: "black"
+            }
             width: 640
             height: 480
-            image: camera.image
+            color: "transparent"
+
+            CaptureImage {
+                id: captureImage
+                width: 640
+                height: 480
+                image: camera.image
+            }
         }
     }
 

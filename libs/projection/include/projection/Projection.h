@@ -20,6 +20,8 @@ signals:
   void sceneChanged();
 
 public:
+  ~Projection();
+
   Q_INVOKABLE void on();
   Q_INVOKABLE void off();
 
