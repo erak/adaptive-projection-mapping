@@ -13,10 +13,6 @@ namespace freemapper {
 class Scene : public QObject
 {
   Q_OBJECT
-  Q_PROPERTY(Mapping* mapping READ mapping NOTIFY mappingChanged)
-
-signals:
-  void mappingChanged();
 
 public:
   using Ptr = std::shared_ptr< Scene >;
@@ -26,7 +22,7 @@ public:
   // Create image from an OpenCV matrix representation
   void          setMatrix( const cv::Mat &matrix );
 
-  Mapping*      mapping() const { return _mapping.get(); }
+  Mapping::Ptr  mapping() const { return _mapping; }
 
   // ...
   void    gray();
@@ -46,9 +42,7 @@ public:
   void    createMapping();
 private:
   cv::Mat       _matrix   = cv::Mat{};
-  Mapping::Ptr  _mapping  = nullptr;
-
-
+  Mapping::Ptr  _mapping;
 };
 
 } // namespace freemapper

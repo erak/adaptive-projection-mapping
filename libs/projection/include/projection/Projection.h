@@ -15,11 +15,11 @@ class Projection : public QObject
 {
   Q_OBJECT
   Q_PROPERTY(bool         enabled READ enabled WRITE setEnabled NOTIFY enabledChanged)
-  Q_PROPERTY(Mapping*     mapping WRITE setMapping NOTIFY mappingChanged)
+  Q_PROPERTY(Scene*       scene WRITE setScene NOTIFY sceneChanged)
 
 signals:
   void enabledChanged();
-  void mappingChanged();
+  void sceneChanged();
 
 public:
   ~Projection();
@@ -27,18 +27,18 @@ public:
   Q_INVOKABLE void on();
   Q_INVOKABLE void off();
 
-  bool          enabled() const { return m_enabled; }
+  bool          enabled() const { return _enabled; }
   void          setEnabled( const bool & );
 
   // Mapping*      mapping() const { return m_mapping.get(); }
-  void          setMapping( Mapping* );
+  void          setScene( Scene* );
 
 private:
   using ThreadPtr = std::unique_ptr<std::thread>;
 
-  bool          m_enabled = false;
-  ThreadPtr     m_thread = nullptr;
-  Mapping::Ptr  m_mapping;
+  bool          _enabled = false;
+  ThreadPtr     _thread = nullptr;
+  Mapping::Ptr  _mapping;
 
   std::mutex    _mapping_mutex;
 };

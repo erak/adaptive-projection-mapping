@@ -26,7 +26,7 @@ void Projection::on()
     sf::RenderWindow window(sf::VideoMode(640, 480), "freemapper::projection", sf::Style::Default, settings);
 
     // run the program as long as the window is open
-    while( m_enabled && window.isOpen() )
+    while( _enabled && window.isOpen() )
     {
       // check all the window's events that were triggered since the last iteration of the loop
       sf::Event event;
@@ -42,7 +42,7 @@ void Projection::on()
 \
         std::lock_guard<std::mutex> lock( _mapping_mutex );
 
-        auto shapes = m_mapping->shapes().get();
+        auto shapes = _mapping->shapes().get();
         sf::ConvexShape shape = shapes->at(1);
 
         window.draw(shape);
@@ -55,7 +55,7 @@ void Projection::on()
     setEnabled( false );
 
   });
-  m_thread.reset( thread );
+  _thread.reset( thread );
 }
 
 // --------------------------------------------------------------------------------------------------------------------
@@ -64,30 +64,30 @@ void Projection::off()
 {
   setEnabled( false );
 
-  if ( !!m_thread ) {
-    m_thread.get()->join();
+  if ( !!_thread ) {
+    _thread.get()->join();
   }
-  m_thread.release();
+  _thread.release();
 }
 
 // --------------------------------------------------------------------------------------------------------------------
 
 void Projection::setEnabled( const bool &enabled )
 {
-  m_enabled = enabled;
+  _enabled = enabled;
   enabledChanged();
 }
 
 // --------------------------------------------------------------------------------------------------------------------
 
-void Projection::setMapping( Mapping *mapping )
+void Projection::setScene( Scene *scene )
 {
   std::lock_guard<std::mutex> lock( _mapping_mutex );
   std::cout << "Projection::setMapping" << std::endl;
 
-  m_mapping.reset( mapping );
+  _mapping = scene->mapping();
 
-  mappingChanged();
+  sceneChanged();
 }
 
 

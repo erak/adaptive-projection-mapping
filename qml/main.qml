@@ -22,7 +22,7 @@ ApplicationWindow {
     Projection {
         id: projection
         enabled: false
-        mapping: camera.scene.mapping
+        scene: camera.scene
         Component.onCompleted: console.log(camera.scene)
     }
 

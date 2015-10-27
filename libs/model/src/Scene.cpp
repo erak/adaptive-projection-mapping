@@ -56,8 +56,6 @@ QImage Scene::qImage()
 void Scene::createMapping()
 {
   _mapping.reset( new Mapping() );
-
-  mappingChanged();
 }
 
 // --------------------------------------------------------------------------------------------------------------------
