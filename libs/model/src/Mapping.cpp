@@ -27,7 +27,7 @@ sf::ConvexShape Mapping::demoShape() const
   shape.setPoint(3, Vector2f(30, 100));
   shape.setPoint(4, Vector2f(5, 50));
 
-  shape.setFillColor(Color::Green);
+  shape.setFillColor(Color::Red);
 
   return shape;
 }

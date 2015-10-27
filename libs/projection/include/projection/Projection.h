@@ -1,6 +1,7 @@
 #pragma once
 
 #include <thread>
+#include <mutex>
 
 #include <QObject>
 #include <QDebug>
@@ -14,7 +15,7 @@ class Projection : public QObject
 {
   Q_OBJECT
   Q_PROPERTY(bool         enabled READ enabled WRITE setEnabled NOTIFY enabledChanged)
-  Q_PROPERTY(Mapping::Ptr mapping READ mapping WRITE setMapping NOTIFY mappingChanged)
+  Q_PROPERTY(Mapping*     mapping WRITE setMapping NOTIFY mappingChanged)
 
 signals:
   void enabledChanged();
@@ -29,8 +30,8 @@ public:
   bool          enabled() const { return m_enabled; }
   void          setEnabled( const bool & );
 
-  Mapping::Ptr  mapping() const { return m_mapping; }
-  void          setMapping( const Mapping::Ptr & );
+  // Mapping*      mapping() const { return m_mapping.get(); }
+  void          setMapping( Mapping* );
 
 private:
   using ThreadPtr = std::unique_ptr<std::thread>;
@@ -38,6 +39,8 @@ private:
   bool          m_enabled = false;
   ThreadPtr     m_thread = nullptr;
   Mapping::Ptr  m_mapping;
+
+  std::mutex    _mapping_mutex;
 };
 
 }

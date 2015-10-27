@@ -39,9 +39,10 @@ void Projection::on()
 
         // clear the window with black color
         window.clear(sf::Color::Black);
+\
+        std::lock_guard<std::mutex> lock( _mapping_mutex );
 
-        auto tmpMapping = mapping().get();
-        auto shapes = tmpMapping->shapes().get();
+        auto shapes = m_mapping->shapes().get();
         sf::ConvexShape shape = shapes->at(1);
 
         window.draw(shape);
@@ -79,9 +80,13 @@ void Projection::setEnabled( const bool &enabled )
 
 // --------------------------------------------------------------------------------------------------------------------
 
-void Projection::setMapping( const Mapping::Ptr &mapping )
+void Projection::setMapping( Mapping *mapping )
 {
-  m_mapping = mapping;
+  std::lock_guard<std::mutex> lock( _mapping_mutex );
+  std::cout << "Projection::setMapping" << std::endl;
+
+  m_mapping.reset( mapping );
+
   mappingChanged();
 }
 

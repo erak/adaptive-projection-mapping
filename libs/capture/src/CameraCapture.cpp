@@ -10,6 +10,11 @@
 
 namespace freemapper {
 
+CameraCapture::CameraCapture()
+{
+  m_scene.reset( new freemapper::Scene() );
+}
+
 void CameraCapture::capture()
 {
   new std::thread( [this] () {
@@ -48,16 +53,39 @@ void CameraCapture::capture()
     capture >> frame; // get a new frame from camera
     cvtColor( frame, converted, COLOR_BGR2GRAY );
 
-    freemapper::Scene original;
-    original.setMatrix( converted );
-    original.gauss();
-    original.canny();
+    //freemapper::Scene original{};
+    //original.setMatrix( converted );
+    //original.gauss();
+    //original.canny();
+    std::lock_guard<std::mutex> scene_lock( _scene_mtx );
+    std::lock_guard<std::mutex> image_lock( _image_mtx );
 
-    m_image = original.qImage();
+    m_scene->setMatrix( converted );
+    m_scene->gauss();
+    m_scene->canny();
+    m_scene->createMapping();
+
+    m_image = m_scene->qImage();
 
     sceneChanged();
     imageChanged();
   });
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+Scene* CameraCapture::scene()
+{
+  std::lock_guard<std::mutex> lock( _scene_mtx );
+  return m_scene.get();
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+const QImage CameraCapture::image()
+{
+  std::lock_guard<std::mutex> lock( _image_mtx );
+  return m_image;
 }
 
 } // namespace freemapper

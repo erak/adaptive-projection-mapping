@@ -6,6 +6,11 @@ using namespace cv;
 
 namespace freemapper {
 
+Scene::Scene()
+{
+  _mapping.reset( new Mapping() );
+}
+
 // --------------------------------------------------------------------------------------------------------------------
 
 void Scene::gray()
@@ -48,9 +53,11 @@ QImage Scene::qImage()
 
 // --------------------------------------------------------------------------------------------------------------------
 
-Mapping::Ptr Scene::createMapping() const
+void Scene::createMapping()
 {
-  return std::make_shared< Mapping >( new Mapping() );
+  _mapping.reset( new Mapping() );
+
+  mappingChanged();
 }
 
 // --------------------------------------------------------------------------------------------------------------------
@@ -58,9 +65,6 @@ Mapping::Ptr Scene::createMapping() const
 void Scene::setMatrix( const Mat &matrix )
 {
   _matrix = matrix;
-  _mapping = createMapping();
-
-  mappingChanged();
 }
 
 // --------------------------------------------------------------------------------------------------------------------

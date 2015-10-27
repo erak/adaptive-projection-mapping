@@ -1,6 +1,7 @@
 #pragma once
 
 #include <thread>
+#include <mutex>
 
 #include <QObject>
 #include <QDebug>
@@ -26,24 +27,19 @@ signals:
 public:
   Q_INVOKABLE void capture();
 
-  Scene*            scene() { return m_scene.get(); }
-  const QImage      image() { return m_image; }
+  CameraCapture();
+
+  Scene*            scene();
+  const QImage      image();
 
 private:
   Scene::Ptr  m_scene;
   QImage      m_image;
 
+  std::mutex  _scene_mtx;
+  std::mutex  _image_mtx;
+
   std::unique_ptr<std::thread> m_thread = nullptr;
-
-  // ...
-  void gray();
-
-  // Apply Gauss blurry filter
-  void gauss();
-
-  // Apply Canny's edge detection
-  void canny();
-
 };
 
 } // namespace freemapper

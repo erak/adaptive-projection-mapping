@@ -23,6 +23,7 @@ ApplicationWindow {
         id: projection
         enabled: false
         mapping: camera.scene.mapping
+        Component.onCompleted: console.log(camera.scene)
     }
 
     Rectangle {
@@ -63,6 +64,7 @@ ApplicationWindow {
         }
         onClicked: {
             camera.capture()
+            console.log(camera.scene)
         }
         text: "Calibrate"
     }
