@@ -35,6 +35,7 @@ public:
 private:
   Scene::Ptr  m_scene;
   QImage      m_image;
+  int         index = 0;
 
   std::mutex  _scene_mtx;
   std::mutex  _image_mtx;

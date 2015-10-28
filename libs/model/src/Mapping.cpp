@@ -2,10 +2,17 @@
 
 namespace freemapper {
 
-Mapping::Mapping( QObject *parent )
-  : QObject( parent )
+Mapping::Mapping()
+{
+  _shapes = std::make_shared< Shapes >( Shapes{} );
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+Mapping::Mapping( const sf::Color &color )
 {
   ConvexShape shape = demoShape();
+  shape.setFillColor( color );
 
   _shapes = std::make_shared< Shapes >( Shapes{} );
   _shapes.get()->insert( std::make_pair( 1, shape ));

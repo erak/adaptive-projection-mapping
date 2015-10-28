@@ -39,7 +39,7 @@ public:
   // OpenCV matrix representation of this imageh
   cv::Mat matrix() { return _matrix; }
 
-  void    createMapping();
+  void    createMapping( const sf::Color &color );
 private:
   cv::Mat       _matrix   = cv::Mat{};
   Mapping::Ptr  _mapping;

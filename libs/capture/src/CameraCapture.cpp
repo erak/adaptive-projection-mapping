@@ -46,7 +46,7 @@ void CameraCapture::capture()
     //{
     //  out.drawShape( contour );
     //}
-    VideoCapture capture(0);
+    VideoCapture capture(1);
     Mat frame;
     Mat converted;
 
@@ -63,7 +63,9 @@ void CameraCapture::capture()
     m_scene->setMatrix( converted );
     m_scene->gauss();
     m_scene->canny();
-    m_scene->createMapping();
+    m_scene->createMapping( (index % 2 == 0) ? sf::Color::Blue : sf::Color::Yellow );
+
+    index++;
 
     m_image = m_scene->qImage();
 

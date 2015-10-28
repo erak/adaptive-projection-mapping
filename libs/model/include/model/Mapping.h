@@ -20,7 +20,8 @@ public:
   using Shapes    = std::map< int, ConvexShape >;
   using ShapesPtr = std::shared_ptr< Shapes >;
 
-  Mapping( QObject *parent = 0 );
+  Mapping();
+  Mapping( const sf::Color& color );
 
   ShapesPtr shapes() const { return _shapes; }
 

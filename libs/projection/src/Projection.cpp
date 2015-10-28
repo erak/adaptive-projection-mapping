@@ -43,12 +43,16 @@ void Projection::on()
         std::lock_guard<std::mutex> lock( _mapping_mutex );
 
         auto shapes = _mapping->shapes().get();
-        sf::ConvexShape shape = shapes->at(1);
 
-        window.draw(shape);
+        for( auto it = shapes->begin(); it != shapes->end(); ++it)
+            window.draw( it->second );
+
+
 
         // end the current frame
         window.display();
+
+        // std::cout << "Projection::process()" << std::endl;
     }
 
     // If projection window was closed, notify QML to alter UI

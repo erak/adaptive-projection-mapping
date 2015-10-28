@@ -30,7 +30,7 @@ void Scene::gauss()
 void Scene::canny()
 {
   // Increasing the 3rd parameter leds to less detected shapes. Shorter / smaller edges seems to be sorted out.
-  Canny( _matrix, _matrix, 0, 120, 3);
+  Canny( _matrix, _matrix, 0, 40, 3);
 }
 
 
@@ -53,9 +53,39 @@ QImage Scene::qImage()
 
 // --------------------------------------------------------------------------------------------------------------------
 
-void Scene::createMapping()
+void Scene::createMapping( const sf::Color &color )
 {
   _mapping.reset( new Mapping() );
+  //
+
+  vector<vector<Point>> contours;
+  vector<Vec4i> hierarchy;
+  RNG rng( 12345 );
+
+  findContours( _matrix, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
+
+  auto id = 0;
+  for( auto &contour: contours )
+  {
+    auto index = 0;
+    auto size = contour.size();
+
+    ConvexShape shape;
+    shape.setPointCount( size );
+    shape.setFillColor( size < 50 ? sf::Color::Green : sf::Color::Yellow );
+    shape.setOutlineThickness( 1.0f );
+    shape.setOutlineColor( sf::Color::White );
+
+    for( auto &point: contour )
+    {
+      shape.setPoint(index, Vector2f(point.x, point.y));
+      index++;
+    }
+
+    _mapping->shapes()->insert( std::make_pair( id, shape ));
+    id++;
+  }
+
 }
 
 // --------------------------------------------------------------------------------------------------------------------
